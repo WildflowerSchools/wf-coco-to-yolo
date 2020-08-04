@@ -1,0 +1,12 @@
+.idea
+*.iml
+.python-version
+
+convert2Yolo
+
+data
+output
+
+coco.names
+manifest.txt
+*.tar.gz
