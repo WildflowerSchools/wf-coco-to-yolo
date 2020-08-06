@@ -48,12 +48,12 @@ cp ./coco.names ./output/wf/.
 cp ./wf_yolo.data ./output/wf/.
 
 echo "Copying Images to YOLO labels folder"
-cp -R ./data/images/ ./output/labels
+cp -R ./data/images/ ./output/wf/labels
 
 echo "Converting Training to YOLO format"
-python ./convert2Yolo/example.py --dataset COCO --img_path ./output/labels/ --label ./data/wf-train.json --convert_output_path ./output/labels --img_type ".png" --manifest_path ./output/wf/manifest_train.txt --cls_list_file ./coco.names
+python ./convert2Yolo/example.py --dataset COCO --img_path ./output/wf/labels/ --label ./data/wf-train.json --convert_output_path ./output/wf/labels --img_type ".png" --manifest_path ./output/wf/manifest_train.txt --cls_list_file ./coco.names --relative_image_path ./data/wf/labels/
 
 echo "Converting Validation to YOLO format"
-python ./convert2Yolo/example.py --dataset COCO --img_path ./output/labels/ --label ./data/wf-val.json --convert_output_path ./output/labels --img_type ".png" --manifest_path ./output/wf/manifest_val.txt --cls_list_file ./coco.names
+python ./convert2Yolo/example.py --dataset COCO --img_path ./output/wf/labels/ --label ./data/wf-val.json --convert_output_path ./output/wf/labels --img_type ".png" --manifest_path ./output/wf/manifest_val.txt --cls_list_file ./coco.names --relative_image_path ./data/wf/labels/
 
 echo "Done! Copy 'data/wf' to your Darknet repo's data folder"
