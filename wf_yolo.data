@@ -1,6 +1,6 @@
-classes= 80
-train  = data/wf/manifest_train.txt
-valid  = data/wf/manifest_val.txt
-names = data/wf/coco.names
-backup = backup/
+classes=80
+train=data/wf/manifest_train.txt
+valid=data/wf/manifest_val.txt
+names=data/wf/coco.names
+backup=backup/
 eval=coco
