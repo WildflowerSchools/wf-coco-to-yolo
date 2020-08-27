@@ -81,8 +81,7 @@ mkdir -p output/wf
 cp ./coco.names ./output/wf/.
 cp ./wf_yolo.data ./output/wf/.
 
-class_count=$(sed '/^\s*$/d' ./coco.names | wc -l)
-class_count="$(echo -e "${class_count}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+class_count=$(grep -c '.*' ./coco.names)
 
 sed -i'.bak' -E "s/classes=[[:digit:]]+/classes=${class_count}/g" ./output/wf/wf_yolo.data  && rm ./output/wf/wf_yolo.data.bak
 
