@@ -1,7 +1,5 @@
 #!/bin/bash
 
-url=$1
-
 COCO_URL=""
 NAMES_URL="https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names"
 while (( "$#" )); do
