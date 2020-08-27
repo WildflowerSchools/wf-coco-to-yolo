@@ -2,15 +2,48 @@
 
 url=$1
 
-if [ "x${url}" != 'x' ]; then
-    filename_with_extension="${url##*/}"
+COCO_URL=""
+NAMES_URL="https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names"
+while (( "$#" )); do
+  case "$1" in
+    --coco-url)
+      if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        COCO_URL=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    --coco-names-url)
+      if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        NAMES_URL=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+      ;;
+  esac
+done
+
+if [ "x${COCO_URL}" != 'x' ]; then
+    filename_with_extension="${COCO_URL##*/}"
     filename_naked="${filename_with_extension%.tar.gz}"
 
     if [ ! -f "./${filename_with_extension}" ]; then
-        wget $url
+        wget ${COCO_URL}
 
         if [ $? -ne 0 ]; then
-            echo "Could not download ${url}"
+            echo "Could not download ${COCO_URL}"
             exit 0
         fi
     fi
@@ -37,7 +70,7 @@ if [ ! -d convert2Yolo ]; then
 fi
 
 if [ ! -f ./coco.names ]; then
-	wget https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names
+	wget ${NAMES_URL}
 fi
 
 echo "Clearing Output folder"
